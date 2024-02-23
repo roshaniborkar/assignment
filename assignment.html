@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Clinic</title>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #doctors-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .doctor {
+            text-align: center;
+            margin: 10px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .doctor:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #85efca;
+        }
+
+        .doctor img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 5px solid #fff;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .doctor:hover img {
+            transform: scale(1.2);
+        }
+
+        .doctor h3 {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .doctor p {
+            font-size: 0.8rem;
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <u><h1>Select Doctor</h1></u>
+
+    <div id="doctors-container"></div>
+
+    <script>
+        const doctorsContainer = document.getElementById('doctors-container');
+        const doctors = [ 
+        { image: 'https://t3.ftcdn.net/jpg/02/60/04/08/360_F_260040863_fYxB1SnrzgJ9AOkcT0hoe7IEFtsPiHAD.jpg' , name: 'Dr. Sumith', specialty: 'Orthodontist'}, 
+        { image: 'https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg' , name: 'Dr. Johnson', specialty: 'Oral Surgeon'}, 
+        { image: 'https://watermark.lovepik.com/photo/20211202/large/lovepik-smiling-female-doctor-picture_501442983.jpg' , name: 'Dr. Rani', specialty: 'Endodontist'},
+        { image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' , name: 'Dr. Williams', specialty: 'Pediatric Dentist' },
+        { image: 'https://t3.ftcdn.net/jpg/02/95/51/80/360_F_295518052_aO5d9CqRhPnjlNDTRDjKLZHNftqfsxzI.jpg' , name: 'Dr. Brown', specialty: 'Endodontist'}, 
+        { image: 'https://img.freepik.com/free-photo/handsome-smiling-medical-professional-examining-with-stethoscope-colored-background_662251-366.jpg' , name: 'Dr. Davis', specialty: 'Prosthodontist'}, 
+        { image: 'https://img.freepik.com/premium-photo/medical-concept-indian-beautiful-female-doctor-white-coat-with-stethoscope-waist-up-medical-student-woman-hospital-worker-looking-camera-smiling-studio-blue-background_185696-621.jpg' , name: 'Dr.Diva', specialty: 'Prosthodontist'}, 
+        { image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' ,name: 'Dr. Priya', specialty: 'Pediatrics' }, 
+        { image: 'https://static.vecteezy.com/system/resources/thumbnails/030/928/115/small/handsome-indian-doctor-generate-ai-photo.jpg',name: 'Dr.  Denim', specialty: 'Pediatrics'  }, 
+        { image: 'https://img.freepik.com/free-photo/handsome-young-male-doctor-with-stethoscope-standing-against-blue-background_662251-343.jpg' ,name: 'Dr. Vijay', specialty: 'Dermatology' }, 
+        { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZorhpMF7h7QyCcX8lRIScot3jaymntQ-D4w&usqp=CAU' ,name: 'Dr. Sanjana', specialty: 'Pediatrics' }, 
+        { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-MGAE7x2yJxCZJ3B5lS-iZwlKNDnBZ12wYQ&usqp=CAU' ,name: 'Dr. Imran', specialty: 'Pediatrics' }, 
+        { image: 'https://www.vhv.rs/dpng/f/10-102765_indian-doctor-hd-png-download.png' ,name: 'Dr. Jockey', specialty: 'Allergist' }, 
+        { image: 'https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.jpg' ,name: 'Dr. Jasmin', specialty: 'Pediatrics' }, 
+        { image: 'https://w7.pngwing.com/pngs/25/402/png-transparent-male-doctor-hospital-medical-real-doctors.png' ,name: 'Dr. Amol', specialty: 'Pediatrics' }, 
+        { image: 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsb2ZmaWNlNl9hX3Bob3RvX29mX2FfbWlkZGxlX2FnZV9mZW1hbGVfaW5kaWFuX2RvY3Rvcl9pc18zZTAwYjhhMi01YWU0LTRkMzEtYjg1ZC0yM2RlOWE1ZTgyMjJfMS5wbmc.png' ,name: 'Dr. Gayatri', specialty: 'Allergist' }, 
+        { image: 'https://e7.pngegg.com/pngimages/95/620/png-clipart-doctors-and-nurses-doctors-and-nurses-thumbnail.png' ,name: 'Dr. Manik', specialty: 'Pediatrics' }, 
+        { image: 'https://cdn.pixabay.com/photo/2017/01/29/21/16/nurse-2019420_640.jpg' ,name: 'Dr. Veena', specialty: 'Pediatrics' }, 
+        { image: 'https://clipart-library.com/images/8cAbq6Mni.png' ,name: 'Dr. Pratik', specialty: 'Allergist' }, 
+        { image: 'https://static.vecteezy.com/system/resources/thumbnails/028/287/555/small/an-indian-young-female-doctor-isolated-on-green-ai-generated-photo.jpg' ,name: 'Dr. Hena', specialty: 'Gynecologist' }, 
+        { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrdPEQpe0WkpqtfHnVcSBbuLbTv9e5BURFhA&usqp=CAU' ,name: 'Dr. Lio', specialty: 'Dermatology' }, 
+        { image: 'https://runneragency.com/wp-content/uploads/2022/11/positive-female-medical-worker-involved-in-chattin-2022-11-01-03-55-49-utc-1024x683.jpg' ,name: 'Dr. Alia', specialty: 'Gynecologist' }, 
+        { image: 'https://t4.ftcdn.net/jpg/02/69/98/99/360_F_269989951_9Gf7PWaRtrpm2EochO3D5WVn22sFZbNZ.jpg',name: 'Dr. Ronak', specialty: 'Pediatrics'  }, 
+        { image: 'https://www.kailashhealthcare.com/Content/images/Doctor/9K57WI4XDr.%20Anup%20AgarwalKailash%20Hospital,%20Noida.jpg.jpg' ,name: 'Dr. John', specialty: 'Pediatrics' }, 
+        { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpFesEQhIhjVCh7-PAFaZEikZbRQycSj7sMA&usqp=CAU',name: 'Dr. Rose', specialty: 'Prosthodontist' }, ]; 
+
+        doctors.forEach(doctor => {
+            const doctorDiv = document.createElement('div');
+            doctorDiv.classList.add('doctor');
+
+            const doctorImg = document.createElement('img');
+            doctorImg.src = doctor.image;
+            doctorDiv.appendChild(doctorImg);
+
+            const doctorName = document.createElement('h3');
+            doctorName.textContent = doctor.name;
+            doctorDiv.appendChild(doctorName);
+
+            const doctorSpecialty = document.createElement('p');
+            doctorSpecialty.textContent = doctor.specialty;
+            doctorDiv.appendChild(doctorSpecialty);
+
+            doctorsContainer.appendChild(doctorDiv);
+        });
+    </script>
+
+</body>
+</html>
